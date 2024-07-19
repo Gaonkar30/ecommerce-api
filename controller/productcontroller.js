@@ -39,4 +39,20 @@ const addProduct = async (req, res) => {
   }
 };
 
-module.exports = { getProducts, getProduct, addProduct };
+const editProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    Object.assign(product, req.body);
+    await product.save();
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getProducts, getProduct, addProduct, editProduct };
+
