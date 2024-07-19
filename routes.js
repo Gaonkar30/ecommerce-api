@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("./controller/usercontroller");
 const productController = require("./controller/productcontroller");
 const cartController = require("./controller/cartcontroller");
+const productController=require('./controller/paymentcontroller');
 const authMiddleware = require("./authmiddleware");
 
 // User routes
@@ -20,4 +21,5 @@ router.put("/products/:id", authMiddleware, productController.editProduct);
 router.post("/cart", authMiddleware, cartController.addToCart);
 router.get("/cart", authMiddleware, cartController.getCart);
 
+router.post('/create-order', authMiddleware, paymentController.createOrder);
 module.exports = router;
